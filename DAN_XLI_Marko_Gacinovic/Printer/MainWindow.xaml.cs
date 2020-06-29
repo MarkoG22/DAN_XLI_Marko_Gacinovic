@@ -20,9 +20,32 @@ namespace Printer
     /// </summary>
     public partial class MainWindow : Window
     {
+        string copies { get; set; }
+        string text { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
