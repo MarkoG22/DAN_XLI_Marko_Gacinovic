@@ -7,6 +7,15 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <TextBox x:Name="Text" HorizontalAlignment="Left" Height="116" Margin="35,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="712" TextChanged="TextBox_TextChanged_1"/>
+        <Label x:Name="TextLabel" Content="Write text:" HorizontalAlignment="Left" Margin="35,20,0,0" VerticalAlignment="Top" Height="28" Width="77"/>
+        <Label x:Name="CopiesLabel" Content="Number of copies:" HorizontalAlignment="Left" Margin="35,190,0,0" VerticalAlignment="Top" Height="28" Width="117"/>
+        <ProgressBar x:Name="ProgressBar" Value="{Binding CurrentProgress, Mode=OneWay}" HorizontalAlignment="Left" Height="23" Margin="35,239,0,0" VerticalAlignment="Top" Width="712"/>
+        <Button x:Name="Print" Content="Print" HorizontalAlignment="Left" Margin="175,325,0,0" VerticalAlignment="Top" Width="177" Height="44" Click="Button_Click" FontSize="20"/>
+        <Button x:Name="Cancel" Content="Cancel" HorizontalAlignment="Left" Margin="440,325,0,0" VerticalAlignment="Top" Width="177" Height="44" Click="Button_Click_1" FontSize="20"/>
+        <Label x:Name="Message" HorizontalAlignment="Left" Margin="35,291,0,0" VerticalAlignment="Top" Width="468" Height="28"/>
+        <TextBox x:Name="Copies" HorizontalAlignment="Left" Height="28" Margin="152,194,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="42" RenderTransformOrigin="-0.421,0.743" TextChanged="TextBox_TextChanged"/>
+        <Label x:Name="Percentage" HorizontalAlignment="Left" Margin="35,260,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.79,-0.5" Width="48" Height="26"/>
+
     </Grid>
 </Window>
