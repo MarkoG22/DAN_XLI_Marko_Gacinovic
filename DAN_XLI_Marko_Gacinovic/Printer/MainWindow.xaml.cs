@@ -1,20 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Printer
 {
@@ -23,11 +12,13 @@ namespace Printer
     /// </summary>
     public partial class MainWindow : Window
     {
+        // properties for textboxes
         string copies { get; set; }
         string text { get; set; }
 
         static BackgroundWorker bw = new BackgroundWorker();
 
+        // constructor with method events
         public MainWindow()
         {
             InitializeComponent();
@@ -37,12 +28,21 @@ namespace Printer
             bw.WorkerSupportsCancellation = true;
         }
 
+        /// <summary>
+        /// method for calculation for the progress bar and creating files
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void bw_DoWork(object sender, DoWorkEventArgs e)
         {
+            // validation for copies input
             bool isValid = int.TryParse(copies, out int numOfCopies);
+
+            // variables for calculating progress bar percentage
             int sum = 0;
             int percentage;
 
+            // loop for calculating progres bar percentage and printing files
             for (int i = 1; i <= numOfCopies; i++)
             {
                 Thread.Sleep(1000);
@@ -59,20 +59,32 @@ namespace Printer
                     return;
                 }
 
+                // name for the files
                 string path = "../../" + i + "." + DateTime.Now.Day + "_" + DateTime.Now.Month + "_" + DateTime.Now.Year + "_" + DateTime.Now.Hour + "_" + DateTime.Now.Minute + ".txt";
 
+                // creating files
                 File.WriteAllText(path, text);
             }
 
             e.Result = sum;
         }
 
+        /// <summary>
+        /// method for displaying progress bar work
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             ProgressBar.Value = e.ProgressPercentage;
             Percentage.Content = e.ProgressPercentage.ToString() + "%";
         }
 
+        /// <summary>
+        /// method for displaying result message
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Cancelled)
@@ -89,21 +101,35 @@ namespace Printer
             }
         }
 
+        /// <summary>
+        /// method for getting text from the textbox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
         {
             text = Text.Text;
         }
 
+        /// <summary>
+        /// method for getting copies from the textbox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             copies = Copies.Text;
         }
 
+        /// <summary>
+        /// method for Print button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (!bw.IsBusy)
-            {
-                // This method will start the execution asynchronously in the background
+            if (!bw.IsBusy)            {
+                
                 bw.RunWorkerAsync();
             }
             else
@@ -112,11 +138,15 @@ namespace Printer
             }
         }
 
+        /// <summary>
+        /// method for Cancel button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             if (bw.IsBusy)
-            {
-                // Cancel the asynchronous operation if still in progress
+            {                
                 bw.CancelAsync();
             }
         }
